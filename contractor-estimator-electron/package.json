@@ -1,0 +1,45 @@
+{
+  "name": "contractor-estimator-desktop",
+  "version": "1.0.0",
+  "description": "Desktop app wrapper (Electron) for Contractor Estimator",
+  "main": "main.js",
+  "scripts": {
+    "postinstall": "cd backend && npm install && cd ../frontend && npm install",
+    "start": "electron .",
+    "dev": "concurrently \"npm:backend\" \"npm:frontend\" \"electron .\"",
+    "backend": "cd backend && node server.js",
+    "frontend": "cd frontend && npm run dev",
+    "build": "electron-builder --publish never",
+    "dist-win": "electron-builder --windows nsis",
+    "dist-mac": "electron-builder --mac dmg"
+  },
+  "build": {
+    "appId": "com.yourcompany.contractorestimator",
+    "productName": "Contractor Estimator",
+    "files": [
+      "backend/**",
+      "frontend/**",
+      "main.js",
+      "package.json",
+      "README.md",
+      "icons/**"
+    ],
+    "directories": {
+      "buildResources": "icons"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "dependencies": {
+    "electron-store": "^8.1.0"
+  },
+  "devDependencies": {
+    "electron": "^26.0.0",
+    "electron-builder": "^24.6.0",
+    "concurrently": "^8.2.0"
+  }
+}
